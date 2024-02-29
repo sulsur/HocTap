@@ -9,9 +9,6 @@ Example	Description
 |nmap –iL target.txt |	Scan targets from a file | 
 |nmap –iR 100 |	Scan random 100 hosts |
 |nmap –exclude 192.168.1.1	| Exclude listed hosts |
-
-Nmap Scan Techniques	
-
 |nmap –sS 192.168.1.1	|TCP SYN port scan (Default)|
 |nmap 192.168.1.1 -sT	| TCP connect port scan (Default without root privilege) |
 |nmap 192.168.1.1 -sU	| UDP port scan |
@@ -20,7 +17,7 @@ Nmap Scan Techniques
 |nmap 192.168.1.1 -sM	|TCP Maimon port scan|
 
 Host Discovery	
-
+| -------- | ------- |
 |nmap 192.168.1.1-3 -sL	|No Scan. List targets only|
 |nmap 192.168.1.1/24 -sn	|Disable port scanning. Host discovery only.|
 |nmap 192.168.1.1-5 -Pn	|Disable host discovery. Port scan only.|
@@ -30,6 +27,7 @@ Host Discovery
 |nmap 192.168.1.1-1/24 -PR	|ARP discovery on local network|
 |nmap 192.168.1.1 -n	|Never do DNS resolution|
 Port Specification	
+| -------- | ------- |
 |nmap 192.168.1.1 -p 21|
 |nmap 192.168.1.1 -p 21-100|
 |nmap 192.168.1.1 -p U:53,T:21-25,80|
