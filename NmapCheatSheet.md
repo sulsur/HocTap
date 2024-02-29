@@ -1,6 +1,8 @@
                                                                     Target Specification	
 Example	Description
-nmap 192.168.1.1	Scan a single IP
+| Cmd    | Describe |
+| -------- | ------- |
+|nmap 192.168.1.1	| Scan a single IP |
 nmap 192.168.1.1 192.168.1.2	Scan specific IPs
 nmap 192.168.1.1-254 	Scan a range IP
 nmap sc.nmap.org	Scan domaain
