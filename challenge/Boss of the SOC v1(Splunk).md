@@ -75,7 +75,8 @@ To make a useful table, add this to your query:
 | table _time, form_data
 
 Search: index=botsv1 sourcetype=stream:http dest_ip=192.168.250.70 http_method=POST | stats count by src_ip, form_data, uri
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/4eeaeb65-3741-45e7-b8c9-11658d8c6c96)
+
 Chúng ta có thể thấy ip 23.22.65.114 đang thực hiện gửi POST đến 192.168.250.70 rất nhiều .
 
 Search: index=botsv1 sourcetype=stream:http dest_ip=192.168.250.70 http_method=POST 
@@ -85,12 +86,15 @@ Nhưng khi ta count thì 40.80.148.42 có tới 10341
 
 Search: index=botsv1 sourcetype=stream:http dest_ip=192.168.250.70 http_method=POST src_ip=40.80.148.42
 | table form_data
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/80b37ec3-78e1-4615-96b5-80952ce90a26)
+
 Không có events nhưng qua statistics cần lưu ý
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/71ea6d49-7ebc-41fc-b30e-68f5d36e7de8)
+
 Search: index=botsv1 imreallynotbatman.com sourcetype="stream:http" src_ip="23.22.63.114" dest_ip="192.168.250.70" http_method="POST" username passwd
 
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/b52d1357-bee5-44cd-a366-a39174f4ff05)
+
 Trong fied form_data có user, passwd .Có thể khẳng định 23.22.63.114 đang brute force
 
 Ans: 23.22.63.114
@@ -102,7 +106,8 @@ Search for common Windows executable filename extensions.
 
 Ta đoán file thực thi có đuôi exe
 Search: index=botsv1 sourcetype=stream:http dest_ip="192.168.250.70" http_method=POST form-data *.exe
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/d38bb000-44e5-47b0-bf24-ec6ad1299691)
+
 Tìm được 2 file nhưng nghi ngờ 3791.exe hơn
 Ans: 3791.exe
 
@@ -113,7 +118,8 @@ Find that file's MD5 hash.
 Hints: Read about Sysmon Event IDs
 Find events from Sysmon for process creation.
 Examine cmdline to find the correct event.
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/0d962ccc-e5db-4484-983d-8df137ce1edf)
+
 
 Ans: AAE3F5A29935E6ABCC2C2754D12A9AF0
 BOTSv1 3.2: Brute Force (10 pts)
@@ -122,7 +128,8 @@ Hints: Start with 1:10 sampling.
 Find events containing "login".
 Find top values of "url".
 Examine the "form_data" values to identify the brute force attack.
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/782e8768-36cb-4bd1-aae6-f7edf6388a25)
+
 
 Ans: 12345678
 
@@ -136,7 +143,8 @@ Search:
 index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192.168.250.70" http_method="POST" username passwd 
 | rex field=form_data "passwd=(?<passwd>\w+)" 
 | stats count by passwd
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/ca560f34-2ca7-4274-8af2-a7c63e399bcd)
+
 
 Ans: batman
 
@@ -148,13 +156,15 @@ Search: index=botsv1 imreallynotbatman.com sourcetype="stream:http" dest_ip="192
 | transaction passwd 
 | eval dur=round(duration, 2)
 | table dur
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/eb756baa-c17b-46a1-9593-74a4179f3401)
+
 Ans: 92.17
 BOTSv1 3.5: Number of Passwords (10 pts)
 How many unique passwords were attempted in the brute force attack?
 Hints: Examine http_user_agent values.
 
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/bf1ccda9-c4e7-4ff3-a954-33adffc14dc9)
+
 Ans: 412
 
 Level 4: Analyzing a Ransomware Attack (20 pts + 160 extra)
@@ -164,7 +174,8 @@ Hints: Search for we8105desk – you find 181,012 events.
 Examine the source field – there are 10 values.
 Explore stream sources with protocols used in Active Directory logins.
 Find events on that day and look at their IP addresses.
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/f239d817-fcf2-45f2-9c7b-877adbf74b35)
+
 Ans: 192.168.250.100
 
 BOTSv1 4.2: Signature ID (5 pts)
@@ -173,7 +184,8 @@ Hints: Search for Cerber – you find 21,596 events.
 Examine the source field – there are 4 values.
 Explore the source type associated with Suricata.
 Search: index=botsv1 sourcetype=suricata cerber
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/ba692813-4ba7-4063-b23e-6b1ad50a7c9b)
+
 Ans: 2816763
 BOTSv1 4.3: FQDN (15 pts)
 What fully qualified domain name (FQDN) does the Cerber ransomware attempt to direct the user to at the end of its encryption phase?
@@ -188,7 +200,8 @@ Find a time delay and the domain lookup events after it. Note the latest time of
 Use the "Date time range" option of Search to narrow the time range to just a few seconds before the Suricata alert. Check to make sure you can still find the Suricata alerts. You may have to adjust the time by am hour or two to compensate for time zone differences.
 Search all events in that small time range. Examine Suricata events. Look at dns-related fields.
 Search: index=botsv1 src_ip="192.168.250.100" source="stream:dns" NOT query=*.arpa AND NOT query=*.microsoft.com AND NOT query=*.msn.com AND NOT query=*.info AND NOT query=*.local AND query=*.*
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/9d51c3a2-e790-4176-b951-4a1bdd81d9d9)
+
 
 ip 192.168.250.100 đang query lên 192.168.250.25 bản ghi A dể hỏi ip của cerberhhyed5frqa.xmfir0.win
 Ans: cerberhhyed5frqa.xmfir0.win
@@ -199,13 +212,17 @@ Examine the src_ip field. Restrict your query to the desired value.
 Examine the event_type field. Restrict your query to events that load Web pages. There are 38 of them.
 Examine the hostnames visited. There are ten of them. Investigate them with Google and find the one that's known to be malicious.
 Search: index=botsv1 src_ip="192.168.250.100" source="stream:dns" NOT query=*.arpa AND NOT query=*.microsoft.com AND NOT query=*.msn.com AND NOT query=*.info AND NOT query=*.local AND query=*.*
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/aae633e5-00f9-494a-8fa5-8bf04549a9d5)
+
 Kiểm tra các gói ngày 24/8/2016
-image
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/7ed6dfda-8cfa-4296-a0c9-887f4a034d66)
+
+![image](https://github.com/sulsur/HocTap/assets/93130840/9aa06cce-acb9-4c68-8180-3d9a9a8e112b)
+
 Event này ghi lại đang query dns.msftncsi.com (Tên miền "dns.msftncsi.com" thường được sử dụng trong hệ thống Windows để kiểm tra kết nối internet và kiểm tra tính khả dụng của mạng.)
 Kiểm tra lần lượt ta thấy
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/0b723f5c-3e18-4b02-8c94-76742a322f7f)
+
 Ans: solidaritedeproximite.org
 BOTSv1 4.5: VB Script (15 pts)
 During the initial Cerber infection a VB script is run. The entire script from this execution, pre-pended by the name of the launching .exe, can be found in a field in Splunk. What is name of the first function defined in the VB script?
@@ -214,7 +231,8 @@ Examine the body field. Find the malicious one.
 *Search: index=botsv1 sourcetype="xmlwineventlog:microsoft-windows-sysmon/operational" .vbs
 | table CommandLine
 
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/31120a75-10d9-42d1-b6d2-19a15d0ed472)
+
 Ans: GNbiPp(Pt5SZ1)
 BOTSv1 4.6: Field Length (15 pts)
 During the initial Cerber infection a VB script is run. The entire script from this execution, pre-pended by the name of the launching .exe, can be found in a field in Splunk. What is the length in characters of the value of this field?
@@ -225,7 +243,8 @@ Search: index=botsv1 sourcetype="xmlwineventlog:microsoft-windows-sysmon/operati
 | eval lencmd=len(CommandLine)
 | table _time CommandLine, lencmd
 | sort - lencmd
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/b369d675-efa4-4d7e-9d61-1072024e88c3)
+
 Ans: 4490
 BOTSv1 4.7: USB key (15 pts)
 What is the name of the USB key inserted by Bob Smith?
@@ -234,7 +253,8 @@ Search for "FriendlyName", as shown here.
 
 Search: index=botsv1 sourcetype="winregistry"host=we8105desk USBSTOR  
 | dedup registry_value_data
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/4eac61e3-a9b4-42cd-8505-d8bb591ddfe2)
+
 Ans: MIRANDA_PRI
 BOTSv1 4.8: Server Name (5 pts)
 Bob Smith's workstation (we8105desk) was connected to a file server during the ransomware outbreak. What is the domain name of the file server?
@@ -243,17 +263,20 @@ Find events with a "path" by adding path="*" to the query
 The server name resembles Bob's workstation name.
 Search:index="botsv1" sourcetype="stream:dns" src_ip="192.168.250.100" dest_ip="192.168.250.20"
 
-image
+
+![image](https://github.com/sulsur/HocTap/assets/93130840/a09053f8-9d51-4b63-9b02-006c3c936f78)
 
 Ans: we9041srv.waynecorpinc.local
 BOTSv1 4.9: IP Address (15 pts)
 Bob Smith's workstation (we8105desk) was connected to a file server during the ransomware outbreak. What is the IP address of the file server?
 Hints: Search for the server's name. Examine the source of those events. Look for source types that record raw network data and would therefore include IP addresses.
 Search: index=botsv1 sourcetype="stream:smb" src_ip="192.168.250.100"
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/3635541f-9c12-409d-9d0d-47e160fc7719)
+
 Khả năng cao là 192.168.250.20
 Kiểm ra dữ liệu out và in của we8105desk(192.168.250.20)
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/36c476ff-d0bc-4cd9-b927-c2fe47424055)
+
 Ans: 192.168.250.20
 BOTSv1 4.10: PDFs (20 pts)
 How many distinct PDFs did the ransomware encrypt on the remote file server?
@@ -261,9 +284,11 @@ Hints: Search for .pdf
 Restrict your search for the "unknown" app
 Find all unique filenames. Remove filenames outside the time range of the attack.
 Tổng các file pdf bị ransomeware mã hóa
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/0d56cf03-7c0e-47f1-afd8-7a8f7b217749)
+
 Liệt kê 1 số file pdf bị mã hóa
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/708b24dc-2c17-4bf7-a912-633fd53a2151)
+
 
 BOTSv1 4.11: Process ID (15 pts)
 The VBscript found above launches 121214.tmp. What is the ParentProcessId of this initial launch?
@@ -271,7 +296,8 @@ Hints: Search for 121214.tmp – you find 190 events.
 Examine the EventDescription field and focus on the one most closely related to the question.
 Examine the CommandLine field.
 
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/812f58ed-cfc8-467e-9248-7ae9dcb458da)
+
 Ans: 3968
 BOTSv1 4.12: Text Files (15 pts)
 The Cerber ransomware encrypts files located in Bob Smith's Windows profile. How many .txt files does it encrypt?
@@ -281,14 +307,17 @@ Examine the file paths and remove the ones outside Bob's profile.
 
 Search: index=botsv1 bob.smith sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" TargetFilename="C:\\Users\\bob.smith.WAYNECORPINC\\*.txt" 
 | stats dc(TargetFilename)
-image
+v![image](https://github.com/sulsur/HocTap/assets/93130840/0597d3c8-a714-4e05-b1f6-5534c231f755)
+
 Ans: 406
+
 BOTSv1 4.13: File Name (15 pts)
 The malware downloads a file that contains the Cerber ransomware cryptor code. What is the name of that file?
 Hints: Search for HTTP downloads from the Cerber-related domain you found above.
 The filename has a surprising extension. Research that filename outside Splunk to verify that it's related to Cerber.
 
-image
+![image](https://github.com/sulsur/HocTap/assets/93130840/5b8c446f-9679-4343-9b11-85a994e1f04c)
+
 Ans: /mhtr.jpg
 BOTSv1 4.14: Obfuscation (10 pts)
 Now that you know the name of the ransomware's encryptor file, what obfuscation technique does it likely use?
