@@ -1,15 +1,20 @@
 1. Configure maltego
    maltego comes pre install in kali and parrot, You need to worry about the installing the binary file.
+
    1.1 Launch maltego
+
    1.2  Accept the agreement
+
    ![image](https://github.com/sulsur/HocTap/assets/93130840/e826f357-0eeb-4c76-812c-02e0389a1e3f)
    
    1.3 Click next and Register and Login via with newly created credentials.
 
    ![image](https://github.com/sulsur/HocTap/assets/93130840/fc0eb466-4dba-45ef-b2b5-407a12367520)
+
    1.4 The login results will be something like below.
 
    ![image](https://github.com/sulsur/HocTap/assets/93130840/c6713d48-eacb-4e0e-a279-e31579caea06)
+
    1.5 Click next and Install the transforms and other configurations are upto you. Once you completed the step 7 it will be something like below.
 
    ![image](https://github.com/sulsur/HocTap/assets/93130840/19ce9270-5db3-4daa-a18d-ab4d05d2f6f8)
@@ -35,3 +40,6 @@ Integrated Case Management: Maltego includes case management functionality, allo
    2.7 Integrations and Extensions: Maltego can be extended through its application programming interface (API) to integrate external tools
 5. How to use  maltego
    Entity Palette : include entities such as (crytocurrency,custom,device,..)
+   Search sub domain :
+   ![image](https://github.com/sulsur/HocTap/assets/93130840/cadac83d-b4f9-47ba-b8cc-43be0089e21a)
+
