@@ -13,11 +13,11 @@ Ans:146.190.21.92
 ### Q2:Initial entry points are critical to trace back the attack vector. What is the port number of the service the adversary exploited?
 I gusess adverary exploit with openwire
 ![image](https://github.com/sulsur/HocTap/assets/93130840/03dc695b-8087-4950-b790-287e25661717)<br>
-From above the image i filter pro.openwire and i see 2 packages.Open the pack1 see dest.port==61616
+From above the image i filter pro.openwire and i see 2 packages.Open the pack1 see dest.port==61616<br>
 Ans:61616
 ### Q3:Following up on the previous question, what is the name of the service found to be vulnerable?
 i search "how to exploit openwire" on my browser
-![image](https://github.com/sulsur/HocTap/assets/93130840/2cc1e0a7-f889-45f8-83f5-37aaf1c77b23)
+![image](https://github.com/sulsur/HocTap/assets/93130840/2cc1e0a7-f889-45f8-83f5-37aaf1c77b23)<br>
 Ans: Apache ActiveMQ
 ### Q4:The attacker's infrastructure often involves multiple components. What is the IP of the second C2 server?
 Their are another 2 connection with our server (128.199.52.72) and (84.239.49.16) .
